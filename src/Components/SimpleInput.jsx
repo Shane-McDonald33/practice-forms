@@ -5,9 +5,11 @@ import React, {useState, useEffect} from "react";
 const SimpleInput = (props) => {
     //const nameInputRef = useRef();
     const [enteredName, setEnteredName] = useState('');
+    const [enteredEmail, setEnteredEmail] = useState('');
     //const [enteredNameIsValid, setEnteredNameIsValid] = useState(false); //got rid of this state bc we don't need an extra validation state for inputing a name field, 
     const [enteredNameTouched, setEnteredNameTouched] = useState(false);
-    const [formIsValid, setFormIsValid] = useState();
+    const [enteredEmailTouched, setEnteredEmailTouched] = useState(false);
+    //const [formIsValid, setFormIsValid] = useState();
 
     // useEffect(() => { // tracks the effect happening on the state and returns a statement to the console, need better explanation for this code, however, in this case it was not needed
     //     if (enteredNameIsValid) {
@@ -18,18 +20,22 @@ const SimpleInput = (props) => {
     const enteredNameIsValid = enteredName.trim() !== '';
     const nameInputIsInvalid = !enteredNameIsValid && enteredNameTouched//this checks that enteredNameIsValid params are not met and that enteredNameTouched params were met, a double form of validation
 
-    // let formIsValid = false
-    // if(enteredIsValid) {
-        // formIsValid = true
-    //} //*This is the same as the useEffect below, except more lean and doesn't cause the code to recheck the state with every event
+    const enteredEmailIsValid = enteredEmail.trim() !=='';
+    const emailInputIsInvalid = !enteredEmailIsValid && enteredEmailTouched
     
-    useEffect(() => {// same as code above, except checks the state more rigorously
-        if (enteredNameIsValid) {
-            setFormIsValid(true);
-        } else {
-            setFormIsValid(false)
-        }
-    }, [enteredNameIsValid]);
+    
+    let formIsValid = false
+    if(enteredNameIsValid && enteredEmailIsValid) {
+        formIsValid = true
+    } //*This is the same as the useEffect below, except more lean and doesn't cause the code to recheck the state with every event
+    
+    // useEffect(() => {// same as code above, except checks the state more rigorously
+    //     if (enteredNameIsValid) {
+    //         setFormIsValid(true);
+    //     } else {
+    //         setFormIsValid(false)
+    //     }
+    // }, [enteredNameIsValid]);
 
     const nameInputChangeHandler = (event) => {
         setEnteredName(event.target.value);
@@ -45,12 +51,20 @@ const SimpleInput = (props) => {
         //     //and if the enteredName state is empty, then it returns back to preventDefault and the app won't move forward
         //     setEnteredNameIsValid(false);
         // }
-    }
+    };
+
+    const emailInputChangeHandler = (event) => {
+        setEnteredEmail(event.target.value);
+    };
+
+    const emailInputBlurHandler = () => {
+        setEnteredEmailTouched(true);
+    };
 
     const formSubmissionHandler = (event) => {
         event.preventDefault();
         //setEnteredNameTouched(true);
-        if (!enteredNameIsValid) {
+        if (!enteredNameIsValid || !enteredEmailIsValid) {
             return;
         }
         // if (enteredName.trim() === '') {//FORM VALIDATION, this if check sees that the input field has characters entered into the field, 'trim' gets rid of whitespace,
@@ -65,13 +79,19 @@ const SimpleInput = (props) => {
         //nameInputRef.current.ref = ''//this will also clear input field, but it is bad practice and not recommended
         setEnteredName('');//clears the input field by using state
         setEnteredNameTouched(false);
+        setEnteredEmail('');
+        setEnteredEmailTouched(false);
 
     }
 
 
     const nameInputClasses = nameInputIsInvalid
     ? 'form-control invalid'
-     : 'form-control'
+    : 'form-control';
+
+    const emailInputClasses = emailInputIsInvalid
+    ? 'form-control invalid'
+    : 'form-control';
 
     return (
         <form onSubmit={formSubmissionHandler}>
@@ -83,6 +103,15 @@ const SimpleInput = (props) => {
                   value={enteredName} 
                   onBlur={nameInputBlurHandler}/>
                 {nameInputIsInvalid && <p className="error-text">Name Must Not Be Empty</p>}
+            </div>
+            <div className={emailInputClasses}>
+                <label htmlFor="name">E-mail Address</label>
+                <input type='text'
+                 id="name"
+                  onChange={emailInputChangeHandler} 
+                  value={enteredEmail} 
+                  onBlur={emailInputBlurHandler}/>
+                {emailInputIsInvalid && <p className="error-text">E-mail Must Not Be Empty</p>}
             </div>
             <div className="form-actions">
                 <button disabled={!formIsValid}>Submit</button>
