@@ -1,13 +1,15 @@
 import React, {useState, useEffect} from "react";
-
+import UseInput from "../Hooks/UseInput";
 
 
 const SimpleInput = (props) => {
     //const nameInputRef = useRef();
-    const [enteredName, setEnteredName] = useState('');
+    const { value: enteredName,
+             hasError: nameInputHasError, 
+             valueChangeHandler: nameChangeHandler, 
+             inputBlurHandler: nameBlurHandler} = UseInput(value => trim() !== '')
     const [enteredEmail, setEnteredEmail] = useState('');
     //const [enteredNameIsValid, setEnteredNameIsValid] = useState(false); //got rid of this state bc we don't need an extra validation state for inputing a name field, 
-    const [enteredNameTouched, setEnteredNameTouched] = useState(false);
     const [enteredEmailTouched, setEnteredEmailTouched] = useState(false);
     //const [formIsValid, setFormIsValid] = useState();
 
@@ -20,7 +22,7 @@ const SimpleInput = (props) => {
     const enteredNameIsValid = enteredName.trim() !== '';
     const nameInputIsInvalid = !enteredNameIsValid && enteredNameTouched//this checks that enteredNameIsValid params are not met and that enteredNameTouched params were met, a double form of validation
 
-    const enteredEmailIsValid = enteredEmail.trim() !=='';
+    const enteredEmailIsValid = enteredEmail.includes('@');
     const emailInputIsInvalid = !enteredEmailIsValid && enteredEmailTouched
     
     
@@ -105,9 +107,9 @@ const SimpleInput = (props) => {
                 {nameInputIsInvalid && <p className="error-text">Name Must Not Be Empty</p>}
             </div>
             <div className={emailInputClasses}>
-                <label htmlFor="name">E-mail Address</label>
-                <input type='text'
-                 id="name"
+                <label htmlFor="email">E-mail Address</label>
+                <input type='email'
+                 id="email"
                   onChange={emailInputChangeHandler} 
                   value={enteredEmail} 
                   onBlur={emailInputBlurHandler}/>
