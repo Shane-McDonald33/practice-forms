@@ -7,7 +7,7 @@ const SimpleInput = (props) => {
     const { value: enteredName,
              hasError: nameInputHasError, 
              valueChangeHandler: nameChangeHandler, 
-             inputBlurHandler: nameBlurHandler} = UseInput(value => trim() !== '')
+             inputBlurHandler: nameBlurHandler} = UseInput(value => value.trim() !== '')
     //const [enteredName, setEnteredName] = useState('');
     const [enteredEmail, setEnteredEmail] = useState('');
     //const [enteredNameIsValid, setEnteredNameIsValid] = useState(false); //got rid of this state bc we don't need an extra validation state for inputing a name field, 
