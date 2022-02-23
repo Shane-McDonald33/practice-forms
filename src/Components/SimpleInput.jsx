@@ -8,8 +8,10 @@ const SimpleInput = (props) => {
              hasError: nameInputHasError, 
              valueChangeHandler: nameChangeHandler, 
              inputBlurHandler: nameBlurHandler} = UseInput(value => trim() !== '')
+    //const [enteredName, setEnteredName] = useState('');
     const [enteredEmail, setEnteredEmail] = useState('');
     //const [enteredNameIsValid, setEnteredNameIsValid] = useState(false); //got rid of this state bc we don't need an extra validation state for inputing a name field, 
+    //const [enteredNameTouched, setEnteredNameTouched] = useState(false);
     const [enteredEmailTouched, setEnteredEmailTouched] = useState(false);
     //const [formIsValid, setFormIsValid] = useState();
 
@@ -19,8 +21,8 @@ const SimpleInput = (props) => {
     //     }
     // }, [enteredNameIsValid])
 
-    const enteredNameIsValid = enteredName.trim() !== '';
-    const nameInputIsInvalid = !enteredNameIsValid && enteredNameTouched//this checks that enteredNameIsValid params are not met and that enteredNameTouched params were met, a double form of validation
+    //const enteredNameIsValid = enteredName.trim() !== '';
+    //const nameInputIsInvalid = !enteredNameIsValid && enteredNameTouched//this checks that enteredNameIsValid params are not met and that enteredNameTouched params were met, a double form of validation
 
     const enteredEmailIsValid = enteredEmail.includes('@');
     const emailInputIsInvalid = !enteredEmailIsValid && enteredEmailTouched

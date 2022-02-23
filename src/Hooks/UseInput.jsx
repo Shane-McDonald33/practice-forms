@@ -17,12 +17,6 @@ const UseInput = (validateValue) => {
     return {
         value: enteredValue, hasError, valueChangeHandler, inputBlurHandler
     }
-
-    return (
-        <div>
-             
-        </div>
-    )
 }
 
 export default UseInput 
