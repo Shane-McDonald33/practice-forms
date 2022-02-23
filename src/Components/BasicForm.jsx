@@ -16,46 +16,50 @@ const BasicForm = (props) => {
     const formSubmitHandler = (event) => {
         event.preventDefault();
         setTouchFirst(true);
-        if (enteredFirst.trim == '') {
-            setEnteredFirstIsValid(fasle);
-            return
+        if (enteredFirst.trim === '') {
+            setEnteredFirstIsValid(false);
+            return;
         }
         setEnteredFirstIsValid(true);
+        setEnteredFirst('');
+
         setTouchLast(true);
-        if (enteredLast.trim() == '') {
+        if (enteredLast.trim() === '') {
             setEnteredLastIsValid(false);
             return;
         }
         setEnteredLastIsValid(true);
+        setEnteredLast('');
+
         setTouchEmail(true);
-        if (enteredEmail.includes() !== '@') {
+        if (enteredEmail.includes('@') === false) {
             setEnteredEmailIsValid(false);
             return;
         }
         setEnteredEmailIsValid(true);
         setEnteredEmail('');
-        setEnteredFirst('');
-        setEnteredLast('');
+        //setEnteredFirst('');
+        // setEnteredLast('');
     };
 
     const fistBlurHandler = () => {
         setTouchFirst(true);
-        if (enteredFirst.trim() !== '') {
+        if (enteredFirst.trim() === '') {
             setEnteredFirstIsValid(false);
         }
     };
 
     const lastBlurHandler = () => {
         setTouchLast(true);
-        if (enteredLast.trim() !== '') {
+        if (enteredLast.trim() === '') {
             setEnteredLastIsValid(false);
         }
     };
 
     const emailBlurHandler = () => {
         setTouchEmail(true);
-        if (enteredEmail.includes() !== '@') {
-            setEnteredEmailIsValid(false);
+        if (enteredEmail.includes('@')) {
+            setEnteredEmailIsValid(true);
         }
     };
 
@@ -75,7 +79,7 @@ const BasicForm = (props) => {
 
     const emailtInputChangeHandler = (event) => {
         setEnteredEmail(event.target.value);
-        if (event.target.value.includes == '@') {
+        if (event.target.value.includes('@')) {
             setEnteredEmailIsValid(true);
         }
     };
@@ -95,8 +99,7 @@ const BasicForm = (props) => {
     const emailtInputClasses = emailInputIsValid
     ? 'form-control invalid'
     : 'form-control'
-
-    const 
+ 
     return (
         <form onSubmit={formSubmitHandler}>
             <div className="control-group">
